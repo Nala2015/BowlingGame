@@ -31,18 +31,7 @@ public class BowlingFrame {
     public int getRollTotal(){
         return firstRollResult + secondRollResult;
     }
-
-
-
-
-
-
-
-
-    /*bowling open - score for that frame is roll1 + roll2
-    bowling spare - score for that frame is 10 + roll1 from next frame
-    bowling strike - score for that frame is 10 + roll1 + roll2 from next frame (e.g 10 + roll1(3) + roll2(5) = 18)*/
-
+    
     public void setFirstRollResult(int firstRollResult) {
         this.firstRollResult = firstRollResult;
     }

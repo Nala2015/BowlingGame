@@ -2,16 +2,17 @@ import java.util.ArrayList;
 
 public class BowlingGame
 {
-    private ArrayList<BowlingFrame> frames = new ArrayList<>();
+    private BowlingFrame previousFrame;
     private int totalScore;
 
     private int firstRoll;
     private int secondRoll;
 
-    private ThrowBall throwBall = new ThrowBall();
+    private ThrowBall throwBall;
 
     public int playBowling() {
         BowlingFrame frame = new BowlingFrame();
+        throwBall = new ThrowBall();
         firstRoll = throwBall.throwFirstBall();
         if (firstRoll != 10){
             secondRoll = throwBall.throwSecondBall();
@@ -19,14 +20,17 @@ public class BowlingGame
         }
         frame.setFirstRollResult(firstRoll);
         totalScore += calculateScore(frame);
-        frames.add(frame);
+        previousFrame = frame;
+
+        System.out.println("First roll: " + frame.getFirstRollResult());
+        if (frame.getFirstRollResult() == 10)
+            System.out.println("There was no second roll");
+        else
+            System.out.println("Second roll: " + (frame.getRollTotal() - frame.getFirstRollResult()));
         return frame.getStatus();
 
+
     }
-    /*
-    maybe we don't need to store the whole list of frames, we could just store the previous one,
-    and check the status of that one (if it is not null) when updating the score. Once the score is updated,
-    we update the previous frame to be the one we just played? */
 
     public int calculateScore(BowlingFrame frame){
         int status = frame.calculateStatus();
@@ -35,17 +39,44 @@ public class BowlingGame
             score = frame.getRollTotal();
         }
         else score += 10;
-        if (frames.size() > 0 && frames.size() < 10) {
-        BowlingFrame frame2 = frames.get(frames.size()-1);
-        if (frame2.getStatus() == BowlingFrame.SPARE)
+        if (previousFrame != null) {
+        if (previousFrame.getStatus() == BowlingFrame.SPARE)
             score += frame.getFirstRollResult();
 
-        if (frame2.getStatus() == BowlingFrame.STRIKE)
+        if (previousFrame.getStatus() == BowlingFrame.STRIKE)
             score += frame.getRollTotal();
         }
 
         totalScore += score;
         return score;
+
+    }
+
+    public int getTotalScore(){
+        return totalScore;
+    }
+
+    public void playTheWholeGame() {
+        for (int i = 0; i < 10; i++) {
+
+            int status = this.playBowling();
+            System.out.println("Status is " + status);
+            System.out.println(this.getTotalScore());
+            System.out.println("-----------------");
+
+        }
+
+        System.out.println("FINAL SCORE IS:" + totalScore);
+    }
+
+
+
+
+
+    public static void main(String[] args)
+    {
+      BowlingGame bg = new BowlingGame();
+      bg.playTheWholeGame();
 
     }
 
