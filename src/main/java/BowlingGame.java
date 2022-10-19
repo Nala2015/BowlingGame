@@ -23,6 +23,10 @@ public class BowlingGame
         return frame.getStatus();
 
     }
+    /*
+    maybe we don't need to store the whole list of frames, we could just store the previous one,
+    and check the status of that one (if it is not null) when updating the score. Once the score is updated,
+    we update the previous frame to be the one we just played? */
 
     public int calculateScore(BowlingFrame frame){
         int status = frame.calculateStatus();
