@@ -31,7 +31,7 @@ public class BowlingFrame {
     public int getRollTotal(){
         return firstRollResult + secondRollResult;
     }
-    
+
     public void setFirstRollResult(int firstRollResult) {
         this.firstRollResult = firstRollResult;
     }

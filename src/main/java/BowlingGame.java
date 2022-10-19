@@ -60,13 +60,19 @@ public class BowlingGame
         for (int i = 0; i < 10; i++) {
 
             int status = this.playBowling();
-            System.out.println("Status is " + status);
+            if (status == 1)
+                System.out.println("Status is OPEN");
+            else if (status == 2)
+                System.out.println("Status is SPARE");
+            else
+                System.out.println("STRIKE");
+
             System.out.println(this.getTotalScore());
             System.out.println("-----------------");
 
         }
 
-        System.out.println("FINAL SCORE IS:" + totalScore);
+        System.out.println("FINAL SCORE IS : " + totalScore);
     }
 
 
